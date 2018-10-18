@@ -878,3 +878,82 @@ DEPRECATION WARNING: `#timestamp` was called without specifying an option for `n
   [1m[36m (0.2ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
   [1m[35mActiveRecord::SchemaMigration Load (0.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+
+
+Started GET "/assets/rails.png" for ::1 at 2018-10-17 22:30:15 -0700
+
+
+Started GET "/movies" for ::1 at 2018-10-17 22:30:20 -0700
+Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'PG', 'PG-13', 'NC-17', 'R')[0m
+  Rendered movies/index.html.haml within layouts/application (11.5ms)
+Completed 200 OK in 184ms (Views: 156.5ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/movies?utf8=%E2%9C%93&ratings%5BG%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BNC-17%5D=1&ratings%5BR%5D=1&commit=Refresh" for ::1 at 2018-10-17 22:30:23 -0700
+Processing by MoviesController#index as HTML
+  Parameters: {"utf8"=>"✓", "ratings"=>{"G"=>"1", "PG"=>"1", "PG-13"=>"1", "NC-17"=>"1", "R"=>"1"}, "commit"=>"Refresh"}
+Redirected to http://localhost:3000/movies?ratings%5BG%5D=1&ratings%5BNC-17%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1
+Completed 302 Found in 3ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/movies?ratings%5BG%5D=1&ratings%5BNC-17%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1" for ::1 at 2018-10-17 22:30:23 -0700
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"G"=>"1", "NC-17"=>"1", "PG"=>"1", "PG-13"=>"1", "R"=>"1"}}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'NC-17', 'PG', 'PG-13', 'R')
+  Rendered movies/index.html.haml within layouts/application (3.9ms)
+Completed 200 OK in 18ms (Views: 15.8ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/movies/new" for ::1 at 2018-10-17 22:30:26 -0700
+Processing by MoviesController#new as HTML
+  Rendered movies/new.html.haml within layouts/application (9.8ms)
+Completed 200 OK in 16ms (Views: 16.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/movies" for ::1 at 2018-10-17 22:30:29 -0700
+Processing by MoviesController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"kH9UdfQgyRDrKTtJ3uJlgvplMwy3STIsRiDQ4CmtvHGUfY/N1tN+XMBUz//bAe48bHgqymET5AcBarueERaO1A==", "movie"=>{"title"=>"asd", "rating"=>"G", "release_date(1i)"=>"2018", "release_date(2i)"=>"10", "release_date(3i)"=>"18"}, "commit"=>"Save Changes"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "movies" ("title", "rating", "release_date", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["title", "asd"], ["rating", "G"], ["release_date", "2018-10-18 00:00:00.000000"], ["created_at", "2018-10-18 05:30:29.508262"], ["updated_at", "2018-10-18 05:30:29.508262"]]
+  [1m[36m (7.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/movies
+Completed 302 Found in 20ms (ActiveRecord: 8.2ms)
+
+
+Started GET "/movies" for ::1 at 2018-10-17 22:30:29 -0700
+Processing by MoviesController#index as HTML
+Redirected to http://localhost:3000/movies?ratings%5BG%5D=1&ratings%5BNC-17%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1
+Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/movies?ratings%5BG%5D=1&ratings%5BNC-17%5D=1&ratings%5BPG%5D=1&ratings%5BPG-13%5D=1&ratings%5BR%5D=1" for ::1 at 2018-10-17 22:30:29 -0700
+Processing by MoviesController#index as HTML
+  Parameters: {"ratings"=>{"G"=>"1", "NC-17"=>"1", "PG"=>"1", "PG-13"=>"1", "R"=>"1"}}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."rating" IN ('G', 'NC-17', 'PG', 'PG-13', 'R')
+  Rendered movies/index.html.haml within layouts/application (5.9ms)
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 0.3ms)
+
+ActionView::Template::Error (undefined method `director' for #<Movie:0x00007f119004b278>):
+    26:         %td= movie.title 
+    27:         %td= movie.rating
+    28:         %td= movie.release_date
+    29:         %td= movie.director
+    30:         %td= link_to "More about #{movie.title}", movie_path(movie)
+    31: 
+    32: = link_to 'Add new movie', new_movie_path
+  app/views/movies/index.html.haml:29:in `block in _app_views_movies_index_html_haml__783021158717053933_69856739094920'
+  app/views/movies/index.html.haml:24:in `_app_views_movies_index_html_haml__783021158717053933_69856739094920'
+
+
+  Rendered /home/phall/.gem/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.7ms)
+  Rendered /home/phall/.gem/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.2ms)
+  Rendered /home/phall/.gem/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.3ms)
+  Rendered /home/phall/.gem/gems/actionpack-4.2.10/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (23.0ms)
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddDirectorToMovies (20181018030115)
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mALTER TABLE "movies" ADD "director" varchar[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20181018030115"]]
+  [1m[36m (7.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"

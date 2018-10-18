@@ -1,6 +1,8 @@
 Feature: search for movies by director
 
-    Finding movies with the same director
+    As a movie buff
+    So that I can find movies with my favorite director
+    I want to include and search on director information in movies I enter
 
 Background: movies in database
         Given the following movies exist:

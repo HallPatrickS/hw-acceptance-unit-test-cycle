@@ -1,0 +1,1 @@
+zip -r hw5.zip rottenpotatoes/app rottenpotatoes/config rottenpotatoes/coverage rottenpotatoes/db/migrate rottenpotatoes/features rottenpotatoes/spec rottenpotatoes/Gemfile rottenpotatoes/Gemfile.lock
