@@ -61,4 +61,12 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
+  def serach
+    @similar_movies = Movies.similar_movies(params[:title])
+    if @similar_movies.nil? || @similar_movies.empty?
+      redirect_to movies_path, alert: "'#{params[:title]}' has no director info"
+    end
+    @movie = Movie.find_by(title: params[:title])
+  end
+
 end
