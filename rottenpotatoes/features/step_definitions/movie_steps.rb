@@ -5,7 +5,6 @@ Given /^the following movies exist:$/ do |table|
 end
 
 Then /^the director of "(.+)" should be "(.+)"/ do |movie_name, director|
-  movie = Movie.find_by(title: movie_name)
-  visit movie_path(movie)
+  visit movie_path(Movie.find_by(title: movie_name))
   expect(page.body).to match(/Director:\s#{director}/)
 end
